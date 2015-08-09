@@ -34,7 +34,7 @@ var Sun = (function (_BaseScraper) {
         return Array.prototype.slice.call(document.querySelectorAll('#articleListSELECT option')).filter(function (a) {
           return a.getAttribute("value") && a.getAttribute("value").indexOf("/") > -1;
         }).map(function (a) {
-          return { title: a.textContent.trim(), link: 'http://orientaldaily.on.cc' + a.getAttribute("value") };
+          return { title: a.textContent.trim(), link: 'http://the-sun.on.cc' + a.getAttribute("value") };
         }).filter(function (a) {
           return a.link && a.link.indexOf("/") > -1;
         });
