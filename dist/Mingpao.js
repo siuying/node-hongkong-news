@@ -47,7 +47,8 @@ var Mingpao = (function (_BaseScraper) {
     key: 'news',
     value: function news(url, done) {
       var results = null;
-      this.nightmare().goto(url).wait("article p").evaluate(function () {
+      this.nightmare().goto(url).wait("article p") // wait for the content to load
+      .evaluate(function () {
         function getInnerText(selector) {
           var sel = window.getSelection();
           sel.selectAllChildren(document.querySelector(selector));

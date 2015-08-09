@@ -7,15 +7,16 @@
     "build": "babel --stage 0 scrapers --out-dir dist",
     "watch": "babel  --watch --stage 0 scrapers --out-dir dist",
     "test": "mocha --compilers js:babel/register",
-    "start": "node server.js"
+    "start": "node server.js",
+    "docker-build": "npm run build && docker build -t 'siuying/hongkong-news' ."
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rebelmail/node-lambda-template.git"
+    "url": "https://github.com/siuying/node-hongkong-new"
   },
   "author": "siuying",
   "license": "MIT",
-  "homepage": "https://github.com/rebelmail/node-lambda-template",
+  "homepage": "https://github.com/siuying/node-hongkong-new",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
