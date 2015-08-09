@@ -30,14 +30,6 @@ var BaseScraper = (function () {
   _createClass(BaseScraper, [{
     key: 'nightmare',
     value: function nightmare() {
-      // for linux, use the bundled binary
-      if (_os2['default'].platform() == 'linux') {
-        return new _nightmare2['default']({
-          phantomPath: _path2['default'].join(__dirname, '../bin') + '/'
-        });
-      }
-
-      // otherwise use installed binary
       return new _nightmare2['default']();
     }
   }]);
