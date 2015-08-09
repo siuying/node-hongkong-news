@@ -14,6 +14,7 @@ RUN apt-get update && \
   apt-get install -y libfontconfig1-dev libicu-dev libfreetype6 libpng-dev libjpeg-dev && \
   rm -rf /var/lib/apt/lists/*
 ADD "https://github.com/siuying/phantomjs-linux-armv7l/blob/master/phantomjs-2.0.0.tar.gz?raw=true" /bin/phantomjs
+RUN chmod +x /bin/phantomjs
 
 EXPOSE 5000
 CMD ["npm", "start"]
