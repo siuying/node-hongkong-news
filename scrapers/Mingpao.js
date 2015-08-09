@@ -25,7 +25,7 @@ export default class Mingpao extends BaseScraper {
     var results = null
     this.nightmare()
       .goto(url)
-      .wait("article p")
+      .wait("article p") // wait for the content to load
       .evaluate(function () {
         function getInnerText(selector) {
           var sel = window.getSelection()
