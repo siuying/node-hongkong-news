@@ -32,9 +32,9 @@ var AppleDaily = (function (_BaseScraper) {
         // then convert the nodes into data
         // then filter the non-null links
         return Array.prototype.slice.call(document.querySelectorAll('#article_ddl option')).map(function (a) {
-          return { title: a.textContent.trim(), href: a.getAttribute("value") };
+          return { title: a.textContent.trim(), link: a.getAttribute("value") };
         }).filter(function (a, idx) {
-          return a.href && a.href.indexOf("http:") > -1;
+          return a.link && a.link.indexOf("http:") > -1;
         });
       }, function (links) {
         results = links;

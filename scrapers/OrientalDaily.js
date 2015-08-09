@@ -11,8 +11,8 @@ export default class OrientalDaily extends BaseScraper {
         // then filter the non-null links
         return Array.prototype.slice.call(document.querySelectorAll('#articleListSELECT option'))
           .filter((a) => a.getAttribute("value") && a.getAttribute("value").indexOf("/") > -1)
-          .map((a) => ({title: a.textContent.trim(), href: ('http://orientaldaily.on.cc' + a.getAttribute("value"))}))
-          .filter((a) => a.href && a.href.indexOf("/") > -1)
+          .map((a) => ({title: a.textContent.trim(), link: ('http://orientaldaily.on.cc' + a.getAttribute("value"))}))
+          .filter((a) => a.link && a.link.indexOf("/") > -1)
         }, function(links) {
         results = links
       })

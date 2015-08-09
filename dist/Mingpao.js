@@ -29,9 +29,9 @@ var Mingpao = (function (_BaseScraper) {
       var results = null;
       this.nightmare().goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest").evaluate(function () {
         return Array.prototype.slice.call(document.querySelectorAll('.listing ul li a')).map(function (a) {
-          return { title: a.text.trim(), href: a.href };
+          return { title: a.text.trim(), link: a.href };
         }).filter(function (a, idx) {
-          return a.href && a.href.indexOf("http:") > -1;
+          return a.link && a.link.indexOf("http:") > -1;
         });
       }, function (links) {
         results = links;

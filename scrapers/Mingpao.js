@@ -7,8 +7,8 @@ export default class Mingpao extends BaseScraper {
       .goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest")
       .evaluate(function () {
         return Array.prototype.slice.call(document.querySelectorAll('.listing ul li a'))
-          .map((a) => ({title: a.text.trim(), href: a.href}))
-          .filter((a, idx) => a.href && a.href.indexOf("http:") > -1)
+          .map((a) => ({title: a.text.trim(), link: a.href}))
+          .filter((a, idx) => a.link && a.link.indexOf("http:") > -1)
       }, function(links) {
         results = links
       })
