@@ -30,7 +30,7 @@ app.get('/news/:name', function(req, res, next) {
     return
   }
 
-  var url = encodeURI(req.body.url)
+  var url = req.query.url ? encodeURI(req.query.url) : ((req.body && req.body.url) ? req.body.url : null)
   if (!url) {
     next()
     return
