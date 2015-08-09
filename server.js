@@ -7,8 +7,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 // return list of news
-app.get('/scrapers/:scraperName/list', function(req, res, next) {
-  var scraperName = req.params.scraperName
+app.get('/lists/:name', function(req, res, next) {
+  var scraperName = req.params.name
   var scraper = scrapers[scraperName]
   if (!scraper) {
     next()
@@ -20,9 +20,10 @@ app.get('/scrapers/:scraperName/list', function(req, res, next) {
   })
 })
 
+// param: url - the url to fetch
 // return a specific news
-app.get('/scrapers/:scraperName/news', function(req, res, next) {
-  var scraperName = req.params.scraperName
+app.get('/news/:name', function(req, res, next) {
+  var scraperName = req.params.name
   var scraper = scrapers[scraperName]
   if (!scraper) {
     next()
