@@ -29,17 +29,20 @@ export default class AppleDaily extends BaseScraper {
     this.nightmare()
       .goto(url)
       .evaluate(function () {
+        function getInnerText(selector) {
+          var sel = window.getSelection()
+          sel.selectAllChildren(document.querySelector(selector))
+          var content = "" + sel
+          sel.removeAllRanges()
+          return content
+        }
+
         var title = document.querySelector("#articleContent h1").textContent.trim()
         var html = document.querySelector("#masterContent").innerHTML
         var url = encodeURI(document.location)
-
-        // get text
-        var sel = window.getSelection()
-        sel.selectAllChildren(document.querySelector("#masterContent"))
-        var content = "" + sel
-        sel.removeAllRanges()
-
-        var imageUrl = document.querySelector("meta[property=\"og:image\"]").getAttribute('content')
+        var content = getInnerText("#masterContent")
+        var image = document.querySelector("meta[property=\"og:image\"]")
+        var imageUrl = image ? image.getAttribute('content') : null
         return {
           source: 'appledaily',
           url: url,

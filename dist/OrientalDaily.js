@@ -54,7 +54,6 @@ var OrientalDaily = (function (_BaseScraper) {
       var results = null;
       this.nightmare().goto(url).evaluate(function () {
         function getInnerText(selector) {
-          // get text
           var sel = window.getSelection();
           sel.selectAllChildren(document.querySelector(selector));
           var content = "" + sel;

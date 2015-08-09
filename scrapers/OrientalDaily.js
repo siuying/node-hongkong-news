@@ -31,7 +31,6 @@ export default class OrientalDaily extends BaseScraper {
       .goto(url)
       .evaluate(function () {
         function getInnerText(selector) {
-          // get text
           var sel = window.getSelection()
           sel.selectAllChildren(document.querySelector(selector))
           var content = "" + sel

@@ -48,17 +48,21 @@ var Mingpao = (function (_BaseScraper) {
     value: function news(url, done) {
       var results = null;
       this.nightmare().goto(url).wait("article p").evaluate(function () {
+        function getInnerText(selector) {
+          var sel = window.getSelection();
+          sel.selectAllChildren(document.querySelector(selector));
+          var content = "" + sel;
+          sel.removeAllRanges();
+          return content;
+        }
+
         var title = document.querySelector("h1").innerHTML;
         var html = document.querySelector("article").innerHTML;
         var url = encodeURI(document.location);
+        var content = getInnerText("article");
+        var image = document.querySelector("meta[property=\"og:image\"]");
+        var imageUrl = image ? image.getAttribute('content') : null;
 
-        // get text
-        var sel = window.getSelection();
-        sel.selectAllChildren(document.querySelector("article"));
-        var content = "" + sel;
-        sel.removeAllRanges();
-
-        var imageUrl = document.querySelector("meta[property=\"og:image\"]").getAttribute('content');
         return {
           source: 'mingpao',
           url: url,
