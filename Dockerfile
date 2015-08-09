@@ -10,13 +10,10 @@ ADD ./ $APP_HOME
 RUN npm install && npm run build
 
 # Install phantomjs
-RUN apt-get update && \
-  apt-get install -y curl && \
-  rm -rf /var/lib/apt/lists/*
-RUN curl -LO "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2" && \
-  tar jxvf phantomjs-1.9.8-linux-x86_64.tar.bz2 && \
+ADD "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2" /phantomjs.tar.bz2
+RUN tar vxfj /phantomjs.tar.bz2 && \
   mv phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs && \
-  rm -rf phantomjs-*
+  rm -rf phantomjs*
 
 EXPOSE 5000
 CMD ["npm", "start"]
