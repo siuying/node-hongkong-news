@@ -8,7 +8,8 @@
     "watch": "babel  --watch --stage 0 scrapers --out-dir dist",
     "test": "mocha --compilers js:babel/register",
     "start": "node server.js",
-    "docker-build": "npm run build && docker build -t 'siuying/hongkong-news' ."
+    "docker-build": "npm run build && docker build -t 'siuying/hongkong-news' .",
+    "docker-push": "npm run docker-build && docker push 'siuying/hongkong-news'"
   },
   "repository": {
     "type": "git",

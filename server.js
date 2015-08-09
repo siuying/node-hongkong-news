@@ -4,7 +4,7 @@ var bodyParser = require('body-parser')
 var scrapers = require('./scrapers')
 var app = express()
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 
 // return list of news
 app.get('/lists/:name', function(req, res, next) {
@@ -22,7 +22,7 @@ app.get('/lists/:name', function(req, res, next) {
 
 // param: url - the url to fetch
 // return a specific news
-app.get('/news/:name', function(req, res, next) {
+app.post('/news/:name', function(req, res, next) {
   var scraperName = req.params.name
   var scraper = scrapers[scraperName]
   if (!scraper) {
@@ -30,11 +30,13 @@ app.get('/news/:name', function(req, res, next) {
     return
   }
 
-  var url = req.query.url ? encodeURI(req.query.url) : ((req.body && req.body.url) ? req.body.url : null)
+  var url = (req.body && req.body.url) ? req.body.url : null
   if (!url) {
     next()
     return
   }
+
+  console.log("request url", url)
   scraper.news(url, function(error, results){
     res.send(results)
   })
