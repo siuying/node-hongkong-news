@@ -1,0 +1,4 @@
+hongkong:
+  build: .
+  volumes:
+    - ./dist:/home/app/dist

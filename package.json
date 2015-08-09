@@ -1,0 +1,29 @@
+{
+  "name": "node-hongkong-news",
+  "version": "0.0.1",
+  "description": "Extract Hong Kong news.",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel --stage 0 scrapers --out-dir dist",
+    "test": "mocha --compilers js:babel/register",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rebelmail/node-lambda-template.git"
+  },
+  "author": "siuying",
+  "license": "MIT",
+  "homepage": "https://github.com/rebelmail/node-lambda-template",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "nightmare": "^1.8.2"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "expect.js": "^0.3.1",
+    "mocha": "^2.2.5",
+    "node-lambda": "^0.6.0"
+  }
+}
