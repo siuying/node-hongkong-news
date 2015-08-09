@@ -1,6 +1,6 @@
 import mocha from 'mocha'
 import expect from 'expect.js'
-import Mingpao from '../scrapers/mingpao'
+import Mingpao from '../scrapers/Mingpao'
 
 describe('Mingpao', () => {
   var scraper

@@ -1,13 +1,16 @@
 import {BaseScraper} from './BaseScraper'
 
-export default class Mingpao extends BaseScraper {
+export default class AppleDaily extends BaseScraper {
   list(done) {
     var results = null
     this.nightmare()
-      .goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest")
+      .goto("http://hk.apple.nextmedia.com/")
       .evaluate(function () {
-        return Array.prototype.slice.call(document.querySelectorAll('.listing ul li a'))
-          .map((a) => ({title: a.text.trim(), href: a.href}))
+        // use Array.prototype.slice to convert NodeList into array
+        // then convert the nodes into data
+        // then filter the non-null links
+        return Array.prototype.slice.call(document.querySelectorAll('#article_ddl option'))
+          .map((a) => ({title: a.textContent.trim(), href: a.getAttribute("value")}))
           .filter((a, idx) => a.href && a.href.indexOf("http:") > -1)
       }, function(links) {
         results = links
@@ -25,21 +28,20 @@ export default class Mingpao extends BaseScraper {
     var results = null
     this.nightmare()
       .goto(url)
-      .wait("article p")
       .evaluate(function () {
-        var title = document.querySelector("h1").innerHTML
-        var html = document.querySelector("article").innerHTML
+        var title = document.querySelector("#articleContent h1").textContent.trim()
+        var html = document.querySelector("#masterContent").innerHTML
         var url = encodeURI(document.location)
 
         // get text
         var sel = window.getSelection()
-        sel.selectAllChildren(document.querySelector("article"))
+        sel.selectAllChildren(document.querySelector("#masterContent"))
         var content = "" + sel
         sel.removeAllRanges()
 
         var imageUrl = document.querySelector("meta[property=\"og:image\"]").getAttribute('content')
         return {
-          source: 'mingpao',
+          source: 'appledaily',
           url: url,
           title: title,
           html: html,

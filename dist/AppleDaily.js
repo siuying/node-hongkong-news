@@ -14,22 +14,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 
 var _BaseScraper2 = require('./BaseScraper');
 
-var Mingpao = (function (_BaseScraper) {
-  _inherits(Mingpao, _BaseScraper);
+var AppleDaily = (function (_BaseScraper) {
+  _inherits(AppleDaily, _BaseScraper);
 
-  function Mingpao() {
-    _classCallCheck(this, Mingpao);
+  function AppleDaily() {
+    _classCallCheck(this, AppleDaily);
 
-    _get(Object.getPrototypeOf(Mingpao.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(AppleDaily.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  _createClass(Mingpao, [{
+  _createClass(AppleDaily, [{
     key: 'list',
     value: function list(done) {
       var results = null;
-      this.nightmare().goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest").evaluate(function () {
-        return Array.prototype.slice.call(document.querySelectorAll('.listing ul li a')).map(function (a) {
-          return { title: a.text.trim(), href: a.href };
+      this.nightmare().goto("http://hk.apple.nextmedia.com/").evaluate(function () {
+        // use Array.prototype.slice to convert NodeList into array
+        // then convert the nodes into data
+        // then filter the non-null links
+        return Array.prototype.slice.call(document.querySelectorAll('#article_ddl option')).map(function (a) {
+          return { title: a.textContent.trim(), href: a.getAttribute("value") };
         }).filter(function (a, idx) {
           return a.href && a.href.indexOf("http:") > -1;
         });
@@ -47,20 +50,20 @@ var Mingpao = (function (_BaseScraper) {
     key: 'news',
     value: function news(url, done) {
       var results = null;
-      this.nightmare().goto(url).wait("article p").evaluate(function () {
-        var title = document.querySelector("h1").innerHTML;
-        var html = document.querySelector("article").innerHTML;
+      this.nightmare().goto(url).evaluate(function () {
+        var title = document.querySelector("#articleContent h1").textContent.trim();
+        var html = document.querySelector("#masterContent").innerHTML;
         var url = encodeURI(document.location);
 
         // get text
         var sel = window.getSelection();
-        sel.selectAllChildren(document.querySelector("article"));
+        sel.selectAllChildren(document.querySelector("#masterContent"));
         var content = "" + sel;
         sel.removeAllRanges();
 
         var imageUrl = document.querySelector("meta[property=\"og:image\"]").getAttribute('content');
         return {
-          source: 'mingpao',
+          source: 'appledaily',
           url: url,
           title: title,
           html: html,
@@ -79,8 +82,8 @@ var Mingpao = (function (_BaseScraper) {
     }
   }]);
 
-  return Mingpao;
+  return AppleDaily;
 })(_BaseScraper2.BaseScraper);
 
-exports['default'] = Mingpao;
+exports['default'] = AppleDaily;
 module.exports = exports['default'];
