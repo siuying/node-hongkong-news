@@ -6,7 +6,7 @@ RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
 # Install app
-ADD ./ $APP_HOME
+ADD ../ $APP_HOME
 RUN npm install && npm run build
 
 # Install phantomjs
