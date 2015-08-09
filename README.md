@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-then head to ``http://localhost:5000/`` for the AppleDaily
+Then open ``http://localhost:5000/`` for the API
 
 ## API
 

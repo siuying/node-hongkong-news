@@ -2,7 +2,7 @@
   "name": "node-hongkong-news",
   "version": "0.0.1",
   "description": "Extract Hong Kong news.",
-  "main": "index.js",
+  "main": "scrapers.js",
   "scripts": {
     "build": "babel --stage 0 scrapers --out-dir dist",
     "watch": "babel  --watch --stage 0 scrapers --out-dir dist",

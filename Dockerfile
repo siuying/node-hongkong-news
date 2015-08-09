@@ -1,9 +1,5 @@
-FROM iojs:1.6
+FROM iojs:2.5
 MAINTAINER Francis Chong <francis@ignition.hk>
-
-RUN apt-get update && \
-  apt-get install -y zip && \
-  rm -rf /var/lib/apt/lists/*
 
 ENV APP_HOME /home/app
 RUN mkdir $APP_HOME
@@ -11,7 +7,16 @@ WORKDIR $APP_HOME
 
 # Install app
 ADD ./ $APP_HOME
-VOLUME $APP_HOME/node_modules
 RUN npm install && npm run build
 
+# Install phantomjs
+RUN apt-get update && \
+  apt-get install -y curl && \
+  rm -rf /var/lib/apt/lists/*
+RUN curl -LO "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2" && \
+  tar jxvf phantomjs-1.9.8-linux-x86_64.tar.bz2 && \
+  mv phantomjs-1.9.8-linux-x86_64/bin/phantomjs /bin/phantomjs && \
+  rm -rf phantomjs-*
+
+EXPOSE 5000
 CMD ["npm", "start"]

@@ -1,4 +1,4 @@
-hongkong:
+news:
   build: .
-  volumes:
-    - ./dist:/home/app/dist
+  ports:
+    - "5000:5000"
