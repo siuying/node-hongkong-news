@@ -1,5 +1,4 @@
 docker-compose.yml
 node_modules
 *.zip
-Dockerfile
 docker
