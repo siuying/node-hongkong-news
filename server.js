@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({extended: false}))
 // return list of news
 app.get('/lists/:name', function(req, res, next) {
   var scraperName = req.params.name
-  var scraper = scrapers[scraperName]
+  var scraperClass = scrapers[scraperName]
+  var scraper = new scraperClass()
   if (!scraper) {
     next()
     return
@@ -24,7 +25,8 @@ app.get('/lists/:name', function(req, res, next) {
 // return a specific news
 app.post('/news/:name', function(req, res, next) {
   var scraperName = req.params.name
-  var scraper = scrapers[scraperName]
+  var scraperClass = scrapers[scraperName]
+  var scraper = new scraperClass()
   if (!scraper) {
     next()
     return

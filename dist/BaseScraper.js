@@ -23,14 +23,16 @@ var _path = require('path');
 var _path2 = _interopRequireDefault(_path);
 
 var BaseScraper = (function () {
-  function BaseScraper() {
+  function BaseScraper(nightmareOptions) {
     _classCallCheck(this, BaseScraper);
+
+    this.nightmareOptions = nightmareOptions;
   }
 
   _createClass(BaseScraper, [{
     key: 'nightmare',
     value: function nightmare() {
-      return new _nightmare2['default']();
+      return new _nightmare2['default'](this.nightmareOptions);
     }
   }]);
 

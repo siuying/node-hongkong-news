@@ -4,8 +4,8 @@ var OrientalDaily = require('./dist/OrientalDaily')
 var Sun = require('./dist/Sun')
 
 module.exports = {
-  appledaily: new AppleDaily(),
-  mingpao: new Mingpao(),
-  orientaldaily: new OrientalDaily(),
-  sun: new Sun()
+  appledaily: AppleDaily,
+  mingpao: Mingpao,
+  orientaldaily: OrientalDaily,
+  sun: Sun
 }

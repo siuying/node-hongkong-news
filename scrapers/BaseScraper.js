@@ -3,7 +3,11 @@ import os from 'os'
 import path from 'path'
 
 export class BaseScraper {
+  constructor(nightmareOptions) {
+    this.nightmareOptions = nightmareOptions
+  }
+
   nightmare() {
-    return new Nightmare()
+    return new Nightmare(this.nightmareOptions)
   }
 }
