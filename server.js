@@ -16,7 +16,7 @@ app.get('/lists/:name', function(req, res, next) {
     return
   }
 
-  scraper.list(function(error, results){
+  scraper.list().then((results) => {
     res.send(results)
   })
 })
@@ -39,11 +39,12 @@ app.post('/news/:name', function(req, res, next) {
   }
 
   console.log("request url", url)
-  scraper.news(url, function(error, results){
-    res.send(results)
-  })
+  scraper.news(url)
+    .then((results) => {
+      res.send(results)
+    })
 })
 
-app.listen(5000, function(){
+app.listen(5005, function(){
   console.log('Express server listening on port 5000')
 })

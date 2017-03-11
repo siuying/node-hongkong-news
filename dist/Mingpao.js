@@ -1,53 +1,43 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _BaseScraper2 = require('./BaseScraper');
 
-var Mingpao = (function (_BaseScraper) {
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Mingpao = function (_BaseScraper) {
   _inherits(Mingpao, _BaseScraper);
 
   function Mingpao() {
     _classCallCheck(this, Mingpao);
 
-    _get(Object.getPrototypeOf(Mingpao.prototype), 'constructor', this).apply(this, arguments);
+    return _possibleConstructorReturn(this, (Mingpao.__proto__ || Object.getPrototypeOf(Mingpao)).apply(this, arguments));
   }
 
   _createClass(Mingpao, [{
     key: 'list',
-    value: function list(done) {
-      var results = null;
-      this.nightmare().goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest").evaluate(function () {
+    value: function list() {
+      return this.nightmare().goto("http://news.mingpao.com/pns/%E6%96%B0%E8%81%9E%E7%B8%BD%E8%A6%BD/web_tc/archive/latest").wait('#maincontent .list1').evaluate(function () {
         return Array.prototype.slice.call(document.querySelectorAll('.listing ul li a')).map(function (a) {
           return { title: a.text.trim(), link: a.href };
         }).filter(function (a, idx) {
           return a.link && a.link.indexOf("http:") > -1;
         });
-      }, function (links) {
-        results = links;
-      }).run(function (err, nightmare) {
-        if (err) {
-          done(err);
-          return;
-        }
-        done(null, results);
-      });
+      }).end();
     }
   }, {
     key: 'news',
-    value: function news(url, done) {
-      var results = null;
-      this.nightmare().goto(url).wait("article p") // wait for the content to load
+    value: function news(url) {
+      return this.nightmare().goto(url).wait("article #upper") // wait for the content to load
       .evaluate(function () {
         function getInnerText(selector) {
           var sel = window.getSelection();
@@ -59,7 +49,7 @@ var Mingpao = (function (_BaseScraper) {
 
         var title = document.querySelector("h1").innerHTML;
         var html = document.querySelector("article").innerHTML;
-        var url = encodeURI(document.location);
+        var url = document.location.href;
         var content = getInnerText("article");
         var image = document.querySelector("meta[property=\"og:image\"]");
         var imageUrl = image ? image.getAttribute('content') : null;
@@ -72,20 +62,11 @@ var Mingpao = (function (_BaseScraper) {
           content: content,
           image_url: imageUrl
         };
-      }, function (docs) {
-        results = docs;
-      }).run(function (err, nightmare) {
-        if (err) {
-          done(err);
-          return;
-        }
-        done(null, results);
-      });
+      }).end();
     }
   }]);
 
   return Mingpao;
-})(_BaseScraper2.BaseScraper);
+}(_BaseScraper2.BaseScraper);
 
-exports['default'] = Mingpao;
-module.exports = exports['default'];
+exports.default = Mingpao;
