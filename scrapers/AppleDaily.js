@@ -1,10 +1,10 @@
 import {BaseScraper} from './BaseScraper'
 
 export default class AppleDaily extends BaseScraper {
-  list(done) {
-    var results = null
-    this.nightmare()
-      .goto("http://hk.apple.nextmedia.com/")
+  list() {
+    return this.nightmare()
+      .goto('http://hk.apple.nextmedia.com/')
+      .wait('#article_ddl')
       .evaluate(function () {
         // use Array.prototype.slice to convert NodeList into array
         // then convert the nodes into data
@@ -12,24 +12,16 @@ export default class AppleDaily extends BaseScraper {
         return Array.prototype.slice.call(document.querySelectorAll('#article_ddl option'))
           .map((a) => ({title: a.textContent.trim(), link: a.getAttribute("value")}))
           .filter((a, idx) => a.link && a.link.indexOf("http:") > -1)
-      }, function(links) {
-        results = links
       })
-      .run(function(err, nightmare){
-        if (err) {
-          done(err)
-          return
-        }
-        done(null, results)
-      })
+      .end()
   }
 
-  news(url, done) {
-    var results = null
-    this.nightmare()
+  news(url) {
+    return this.nightmare()
       .goto(url)
+      .wait('#masterContent')
       .evaluate(function () {
-        function getInnerText(selector) {
+        var getInnerText = function (selector) {
           var sel = window.getSelection()
           sel.selectAllChildren(document.querySelector(selector))
           var content = "" + sel
@@ -39,7 +31,7 @@ export default class AppleDaily extends BaseScraper {
 
         var title = document.querySelector("#articleContent h1").textContent.trim()
         var html = document.querySelector("#masterContent").innerHTML
-        var url = encodeURI(document.location)
+        var url = document.location.href
         var content = getInnerText("#masterContent")
         var image = document.querySelector("meta[property=\"og:image\"]")
         var imageUrl = image ? image.getAttribute('content') : null
@@ -51,15 +43,7 @@ export default class AppleDaily extends BaseScraper {
           content: content,
           image_url: imageUrl
         }
-      }, function(docs) {
-        results = docs
       })
-      .run(function(err, nightmare){
-        if (err) {
-          done(err)
-          return
-        }
-        done(null, results)
-      })
+      .end()
   }
 }
