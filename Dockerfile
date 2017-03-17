@@ -1,4 +1,4 @@
-FROM iojs:2.5
+FROM node:7
 MAINTAINER Francis Chong <francis@ignition.hk>
 
 ENV APP_HOME /home/app

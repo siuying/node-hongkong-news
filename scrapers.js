@@ -1,6 +1,6 @@
-var Mingpao = require('./dist/Mingpao')
-var AppleDaily = require('./dist/AppleDaily')
-var OrientalDaily = require('./dist/OrientalDaily')
+var Mingpao = require('./dist/Mingpao').default
+var AppleDaily = require('./dist/AppleDaily').default
+var OrientalDaily = require('./dist/OrientalDaily').default
 
 module.exports = {
   appledaily: AppleDaily,

@@ -45,6 +45,6 @@ app.post('/news/:name', function(req, res, next) {
     })
 })
 
-app.listen(5005, function(){
+app.listen(5000, function(){
   console.log('Express server listening on port 5000')
 })
