@@ -1,10 +1,23 @@
-var express = require('express')
-var bodyParser = require('body-parser')
+'use strict'
 
-var scrapers = require('./scrapers')
-var app = express()
+const express = require('express')
+const bodyParser = require('body-parser')
+const info = require('./package.json')
+const scrapers = require('./scrapers')
+const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
+
+// return all scrapers
+app.get('/', function(req, res, next) {
+  const results = {
+    name: info.name,
+    description: info.description,
+    version: info.version,
+    scrapers: Object.keys(scrapers)
+  }
+  res.send(results)
+})
 
 // return list of news
 app.get('/lists/:name', function(req, res, next) {
