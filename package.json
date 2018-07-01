@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel --stage 0 scrapers --out-dir dist",
     "watch": "babel  --watch --stage 0 scrapers --out-dir dist",
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --require babel-core/register",
     "start": "DEBUG=nightmare xvfb-run --server-args='-screen 0 1024x768x24' node server.js",
     "docker-build": "npm run build && docker build -t 'siuying/hongkong-news' .",
     "docker-push": "npm run docker-build && docker push 'siuying/hongkong-news'"
@@ -30,6 +30,6 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
     "expect.js": "^0.3.1",
-    "mocha": "^3.2.0"
+    "mocha": "^5.2.0"
   }
 }
