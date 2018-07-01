@@ -21,7 +21,7 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "nightmare": "^2.10.0"
+    "nightmare": "^3"
   },
   "devDependencies": {
     "babel": "^6.2.3",
