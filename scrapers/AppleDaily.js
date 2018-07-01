@@ -11,7 +11,7 @@ export default class AppleDaily extends BaseScraper {
         // then filter the non-null links
         return Array.prototype.slice.call(document.querySelectorAll('#article_ddl option'))
           .map((a) => ({title: a.textContent.trim(), link: a.getAttribute("value")}))
-          .filter((a, idx) => a.link && a.link.indexOf("http:") > -1)
+          .filter((a, idx) => a.link && a.link.indexOf("http") > -1)
       })
       .end()
   }
